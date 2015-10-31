@@ -6,17 +6,15 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
-
 import java.util.ArrayList;
 
 public class DrawingPane extends View {
 
+    ArrayList<Line> lines = new ArrayList<Line>();
+
     public DrawingPane(Context context) {
         super(context);
     }
-
-    ArrayList<Line> lines = new ArrayList<Line>();
 
     @Override
     protected void onDraw(Canvas canvas) {
@@ -81,20 +79,13 @@ public class DrawingPane extends View {
         return true;
     }
 
-    boolean showLine = false;
-    float lineX, lineY;
     void addNewLine(float x, float y) {
         int size = 200;
-        lines.add(new Line(x-size, y, x+size, y));
+        lines.add(new Line(x - size, y, x + size, y));
     }
 
     void moveLine(float x, float y) {
         addNewLine(x, y);
-//        lineX = x;
-//        lineY = y;
-    }
 
-    void removeLine(int pointerID) {
-        //showLine = false;
     }
 }

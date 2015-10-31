@@ -26,4 +26,7 @@ public class MainActivity extends ActionBarActivity {
         drawingPane.lines.clear();
         drawingPane.invalidate();
     }
+
+    public void newLine(View view) {
+    }
 }
