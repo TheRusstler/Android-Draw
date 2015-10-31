@@ -10,6 +10,22 @@
         android:layout_height="wrap_content"
         android:id="@+id/textView" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Clear!"
+        android:id="@+id/button"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:onClick="clear" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/button"
+        android:layout_below="@+id/textView"
+        android:id="@+id/drawingLayout"></RelativeLayout>
 
 
 </RelativeLayout>

@@ -6,6 +6,9 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
+
+import java.util.ArrayList;
 
 public class DrawingPane extends View {
 
@@ -13,64 +16,65 @@ public class DrawingPane extends View {
         super(context);
     }
 
+    ArrayList<Line> lines = new ArrayList<Line>();
+
     @Override
     protected void onDraw(Canvas canvas) {
         drawBackground(canvas);
+        drawObjects(canvas);
     }
 
     private void drawBackground(Canvas canvas) {
-
+        Paint paint = new Paint();
+        paint.setColor(Color.GRAY);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(5);
 
         int w = getWidth() - (getPaddingLeft() + getPaddingRight());
         int h = getHeight() - (getPaddingTop() + getPaddingBottom());
         int x = getPaddingLeft();
         int y = getPaddingTop();
+        canvas.drawRect(x, y, w, h, paint);
+    }
+
+    void drawObjects(Canvas canvas) {
         Paint paint = new Paint();
         paint.setColor(Color.BLUE);
         paint.setStyle(Paint.Style.FILL);
         paint.setStrokeWidth(5);
-        //canvas.drawRect(x, y, w, h, paint);
 
-        //canvas.drawRect(x + 200, y + 200, w / 2, h / 2, paint);
-
-        if(showLine) {
-            int size = 200;
-            int finger = 30;
-            canvas.drawLine(lineX-size, lineY - finger, lineX+size, lineY- finger, paint);
+        for(Line line : lines) {
+            canvas.drawLine(line.x1, line.y1, line.x2, line.y2, paint);
         }
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        int action = event.getActionMasked();
+        int action, pointerIndex;
+        float x, y;
+
+        action = event.getActionMasked();
+        pointerIndex = event.getActionIndex();
+
+        x = event.getX(pointerIndex);
+        y = event.getY(pointerIndex);
+
         switch (action) {
             case MotionEvent.ACTION_DOWN:
             case MotionEvent.ACTION_POINTER_DOWN: {
-                int pointerIndex = event.getActionIndex();
-                int pointerID = event.getPointerId(pointerIndex);
-                float x = event.getX(pointerIndex);
-                float y = event.getY(pointerIndex);
-                addNewLine(x, y, pointerID);
+                addNewLine(x, y);
                 break;
             }
             case MotionEvent.ACTION_MOVE:
             {
-                int pointerCount = event.getPointerCount();
-                for(int p=0; p<pointerCount; p++) {
-                    int pointerID = event.getPointerId(p);
-                    float x = event.getX(p);
-                    float y = event.getY(p);
-                    moveLine(x,y,pointerID);
-                }
+                moveLine(x,y);
                 break;
             }
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_POINTER_UP:
             case MotionEvent.ACTION_CANCEL:
             {
-                int pointerIndex = event.getActionIndex();
-                int pointerID = event.getPointerId(pointerIndex);
-                removeLine(pointerID);
+                break;
             }
         }
         invalidate();
@@ -79,15 +83,15 @@ public class DrawingPane extends View {
 
     boolean showLine = false;
     float lineX, lineY;
-    void addNewLine(float x, float y, int pointerID) {
-        lineX = x;
-        lineY = y;
-        showLine = true;
+    void addNewLine(float x, float y) {
+        int size = 200;
+        lines.add(new Line(x-size, y, x+size, y));
     }
 
-    void moveLine(float x, float y, int pointerID) {
-        lineX = x;
-        lineY = y;
+    void moveLine(float x, float y) {
+        addNewLine(x, y);
+//        lineX = x;
+//        lineY = y;
     }
 
     void removeLine(int pointerID) {
