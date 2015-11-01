@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class DrawingPane extends View {
 
     private DrawingMode mode = DrawingMode.None;
-    private CurrentShape currentShape;
+    private CurrentShape currentShape = CurrentShape.Line;
     private ArrayList<Shape> shapes = new ArrayList<Shape>();
 
     private Shape newObject;
@@ -66,8 +66,13 @@ public class DrawingPane extends View {
 
     void pointerDown(float x, float y) {
         if (mode == DrawingMode.Draw) {
-            if (currentShape == CurrentShape.Line) {
-                newObject = new Line(x, y, x, y, getPaint());
+            switch (currentShape) {
+                case Line:
+                    newObject = new Line(x, y, x, y, getPaint());
+                    break;
+                case Rectangle:
+                    newObject = new Rectangle(x, y, x, y, getPaint());
+                    break;
             }
         }
         if (mode == DrawingMode.Move) {
@@ -77,22 +82,26 @@ public class DrawingPane extends View {
 
     void pointerMove(float x, float y) {
         if (mode == DrawingMode.Draw) {
-            if (currentShape == CurrentShape.Line) {
-                Line line = (Line) newObject;
-                line.x2 = x;
-                line.y2 = y;
+            switch (currentShape) {
+                case Line:
+                    Line line = (Line) newObject;
+                    line.x2 = x;
+                    line.y2 = y;
+                    break;
+                case Rectangle:
+                    Rectangle rect = (Rectangle) newObject;
+                    rect.x2 = x;
+                    rect.y2 = y;
+                    break;
             }
         }
         if (mode == DrawingMode.Move) {
-            if (currentShape == CurrentShape.Line) {
-                newObject.move(x, y);
-            }
+            newObject.move(x, y);
         }
     }
 
     void pointerUp(float x, float y) {
-        if(mode != DrawingMode.None)
-        {
+        if (mode != DrawingMode.None) {
             setMode(DrawingMode.Drawn);
         }
     }

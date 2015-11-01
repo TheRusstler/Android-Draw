@@ -11,17 +11,40 @@
     tools:context=".MainActivity">
 
     <RelativeLayout
-        android:layout_width="230dp"
+        android:layout_width="180dp"
         android:layout_height="400dp"
         android:layout_centerVertical="true"
         android:background="#DDD"
         android:padding="10dp">
 
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:orientation="vertical">
+            <Button
+                android:id="@+id/lineButton"
+                style="@style/button_text"
+                android:background="@drawable/blue_button"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:onClick="line"
+                android:text="Line" />
+            <Button
+                android:id="@+id/rectangleButton"
+                style="@style/button_text"
+                android:background="@drawable/blue_button"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:onClick="rectangle"
+                android:text="Rectangle" />
+        </LinearLayout>
+
     </RelativeLayout>
 
 
     <RelativeLayout
-        android:layout_width="230dp"
+        android:layout_width="180dp"
         android:layout_height="400dp"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
@@ -35,12 +58,12 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/newLineButton"
+                android:id="@+id/drawButton"
                 style="@style/button_text"
                 android:background="@drawable/green_button"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:onClick="newLine"
+                android:onClick="draw"
                 android:text="Draw" />
 
             <Button
