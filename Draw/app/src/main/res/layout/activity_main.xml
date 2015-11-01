@@ -58,15 +58,6 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/drawButton"
-                style="@style/button_text"
-                android:background="@drawable/green_button"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:onClick="draw"
-                android:text="Draw" />
-
-            <Button
                 android:id="@+id/confirmButton"
                 style="@style/button_text"
                 android:background="@drawable/green_button"

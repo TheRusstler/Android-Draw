@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class DrawingPane extends View {
 
-    private DrawingMode mode = DrawingMode.None;
+    private DrawingMode mode = DrawingMode.Draw;
     private CurrentShape currentShape = CurrentShape.Line;
     private ArrayList<Shape> shapes = new ArrayList<Shape>();
 
@@ -26,7 +26,7 @@ public class DrawingPane extends View {
     public void clear() {
         shapes.clear();
         newObject = null;
-        setMode(DrawingMode.None);
+        setMode(DrawingMode.Draw);
         this.invalidate();
     }
 
@@ -101,9 +101,7 @@ public class DrawingPane extends View {
     }
 
     void pointerUp(float x, float y) {
-        if (mode != DrawingMode.None) {
-            setMode(DrawingMode.Drawn);
-        }
+        setMode(DrawingMode.Drawn);
     }
 
     private void drawBackground(Canvas canvas) {
@@ -146,13 +144,13 @@ public class DrawingPane extends View {
 
     public void cancelNewObject() {
         newObject = null;
-        setMode(DrawingMode.None);
+        setMode(DrawingMode.Draw);
         invalidate();
     }
 
     public void confirmNewObject() {
         shapes.add(newObject);
         newObject = null;
-        setMode(DrawingMode.None);
+        setMode(DrawingMode.Draw);
     }
 }
