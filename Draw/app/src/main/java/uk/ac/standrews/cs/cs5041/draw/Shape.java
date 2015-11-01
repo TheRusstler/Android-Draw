@@ -5,4 +5,6 @@ import android.graphics.Canvas;
 public interface Shape {
     void draw(Canvas canvas);
     void move(float x, float y);
+    void scale(double factor);
+    Shape deepCopy();
 }

@@ -18,6 +18,9 @@ public class DrawingPane extends View {
     private Shape newObject;
     Runnable onModeChange;
 
+    Shape preScaleShape;
+    double multitouchStartDist = 0;
+
     public DrawingPane(Context context, Runnable onModeChange) {
         super(context);
         this.onModeChange = onModeChange;
@@ -47,21 +50,61 @@ public class DrawingPane extends View {
         x = event.getX(pointerIndex);
         y = event.getY(pointerIndex) - 50;
 
-        switch (action) {
-            case MotionEvent.ACTION_DOWN:
-            case MotionEvent.ACTION_POINTER_DOWN:
-                pointerDown(x, y);
-                break;
-            case MotionEvent.ACTION_MOVE:
-                pointerMove(x, y);
-                break;
-            case MotionEvent.ACTION_UP:
-            case MotionEvent.ACTION_POINTER_UP:
-            case MotionEvent.ACTION_CANCEL:
-                pointerUp(x, y);
+
+        if (event.getPointerCount() == 2) {
+            // Multitouch event
+
+            switch (action) {
+                case MotionEvent.ACTION_POINTER_DOWN:
+                    preScaleShape = newObject.deepCopy();
+                    multitouchStartDist = getMultitouchDist(event);
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    pointerMultitouchMove(event);
+                    break;
+            }
+        } else {
+            // Single touch event
+            switch (action) {
+                case MotionEvent.ACTION_DOWN:
+                    System.out.println("First touch");
+                    pointerDown(x, y);
+                    break;
+
+                case MotionEvent.ACTION_POINTER_DOWN:
+                    System.out.println("Additional touch!");
+                    pointerDown(x, y);
+                    break;
+
+                case MotionEvent.ACTION_MOVE:
+                    pointerMove(x, y);
+                    break;
+
+                case MotionEvent.ACTION_UP:
+                case MotionEvent.ACTION_POINTER_UP:
+                case MotionEvent.ACTION_CANCEL:
+                    pointerUp(x, y);
+
+            }
         }
+
         invalidate();
         return true;
+    }
+
+    void pointerMultitouchMove(MotionEvent event) {
+        double dist = getMultitouchDist(event);
+        double factor = dist / multitouchStartDist;
+        Shape scaled = preScaleShape.deepCopy();
+        scaled.scale(factor);
+        newObject = scaled;
+    }
+
+    static double getMultitouchDist(MotionEvent event) {
+        float diffX = Math.abs(event.getX(0) - event.getX(1));
+        float diffY = Math.abs(event.getY(0) - event.getY(1));
+        double dist = Math.sqrt((Math.pow(diffX, 2) + Math.pow(diffY, 2)));
+        return dist;
     }
 
     void pointerDown(float x, float y) {

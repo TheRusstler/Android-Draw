@@ -33,4 +33,15 @@ public class Line implements Shape {
         y1 += diffY;
         y2 += diffY;
     }
+
+    @Override
+    public void scale(double factor) {
+        x2 = (float)(x2 * factor);
+        y2 = (float)(y2 * factor);
+    }
+
+    @Override
+    public Shape deepCopy() {
+        return null;
+    }
 }

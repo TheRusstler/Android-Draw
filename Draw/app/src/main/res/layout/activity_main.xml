@@ -76,6 +76,15 @@
                 android:text="Move" />
 
             <Button
+                android:id="@+id/scaleButton"
+                style="@style/button_text"
+                android:background="@drawable/blue_button"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:onClick="scale"
+                android:text="Scale" />
+
+            <Button
                 android:id="@+id/cancelButton"
                 style="@style/button_text"
                 android:background="@drawable/red_button"

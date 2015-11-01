@@ -43,6 +43,10 @@ public class MainActivity extends ActionBarActivity {
         board.setMode(DrawingMode.Move);
     }
 
+    public void scale(View view) {
+        board.setMode(DrawingMode.Scale);
+    }
+
     public void cancel(View view) {
         board.cancelNewObject();
     }
