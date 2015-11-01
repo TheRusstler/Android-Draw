@@ -6,22 +6,27 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.MotionEvent;
 import android.view.View;
+
 import java.util.ArrayList;
 
 public class DrawingPane extends View {
 
-    private DrawingMode mode;
+    private DrawingMode mode = DrawingMode.None;
     private CurrentShape currentShape;
     private ArrayList<Shape> shapes = new ArrayList<Shape>();
 
     private Shape newObject;
+    Runnable onModeChange;
 
-    public DrawingPane(Context context) {
+    public DrawingPane(Context context, Runnable onModeChange) {
         super(context);
+        this.onModeChange = onModeChange;
     }
 
     public void clear() {
         shapes.clear();
+        newObject = null;
+        setMode(DrawingMode.None);
         this.invalidate();
     }
 
@@ -29,6 +34,67 @@ public class DrawingPane extends View {
     protected void onDraw(Canvas canvas) {
         drawBackground(canvas);
         drawObjects(canvas);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        int action, pointerIndex;
+        float x, y;
+
+        action = event.getActionMasked();
+        pointerIndex = event.getActionIndex();
+
+        x = event.getX(pointerIndex);
+        y = event.getY(pointerIndex) - 50;
+
+        switch (action) {
+            case MotionEvent.ACTION_DOWN:
+            case MotionEvent.ACTION_POINTER_DOWN:
+                pointerDown(x, y);
+                break;
+            case MotionEvent.ACTION_MOVE:
+                pointerMove(x, y);
+                break;
+            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_POINTER_UP:
+            case MotionEvent.ACTION_CANCEL:
+                pointerUp(x, y);
+        }
+        invalidate();
+        return true;
+    }
+
+    void pointerDown(float x, float y) {
+        if (mode == DrawingMode.Draw) {
+            if (currentShape == CurrentShape.Line) {
+                newObject = new Line(x, y, x, y, getPaint());
+            }
+        }
+        if (mode == DrawingMode.Move) {
+            pointerMove(x, y);
+        }
+    }
+
+    void pointerMove(float x, float y) {
+        if (mode == DrawingMode.Draw) {
+            if (currentShape == CurrentShape.Line) {
+                Line line = (Line) newObject;
+                line.x2 = x;
+                line.y2 = y;
+            }
+        }
+        if (mode == DrawingMode.Move) {
+            if (currentShape == CurrentShape.Line) {
+                newObject.move(x, y);
+            }
+        }
+    }
+
+    void pointerUp(float x, float y) {
+        if(mode != DrawingMode.None)
+        {
+            setMode(DrawingMode.Drawn);
+        }
     }
 
     private void drawBackground(Canvas canvas) {
@@ -40,10 +106,10 @@ public class DrawingPane extends View {
     }
 
     void drawObjects(Canvas canvas) {
-        for(Shape s : shapes) {
+        for (Shape s : shapes) {
             s.draw(canvas);
         }
-        if(newObject != null) {
+        if (newObject != null) {
             newObject.draw(canvas);
         }
     }
@@ -56,63 +122,28 @@ public class DrawingPane extends View {
         return paint;
     }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        int action, pointerIndex;
-        float x, y;
-
-        action = event.getActionMasked();
-        pointerIndex = event.getActionIndex();
-
-        x = event.getX(pointerIndex);
-        y = event.getY(pointerIndex);
-
-        switch (action) {
-            case MotionEvent.ACTION_DOWN:
-            case MotionEvent.ACTION_POINTER_DOWN:
-                pointerDown(x, y);
-                break;
-            case MotionEvent.ACTION_MOVE:
-                pointerMove(x,y);
-                break;
-            case MotionEvent.ACTION_UP:
-            case MotionEvent.ACTION_POINTER_UP:
-            case MotionEvent.ACTION_CANCEL:
-                pointerUp(x, y);
-        }
-        invalidate();
-        return true;
+    public DrawingMode getMode() {
+        return mode;
     }
-
-    void pointerDown(float x, float y) {
-        if(mode == DrawingMode.Draw) {
-            if(currentShape == CurrentShape.Line) {
-                newObject = new Line(x, y, x, y, getPaint());
-            }
-        }
-    }
-
-    void pointerMove(float x, float y) {
-        if(mode == DrawingMode.Draw) {
-            if(currentShape == CurrentShape.Line) {
-                Line line = (Line) newObject;
-                line.x2 = x;
-                line.y2 = y;
-            }
-        }
-    }
-
-    void pointerUp(float x, float y) {
-        if(mode == DrawingMode.Draw) {
-            shapes.add(newObject);
-        }
-    }
-
 
     public void setMode(DrawingMode mode) {
         this.mode = mode;
+        onModeChange.run();
     }
+
     public void setCurrentShape(CurrentShape currentShape) {
         this.currentShape = currentShape;
+    }
+
+    public void cancelNewObject() {
+        newObject = null;
+        setMode(DrawingMode.None);
+        invalidate();
+    }
+
+    public void confirmNewObject() {
+        shapes.add(newObject);
+        newObject = null;
+        setMode(DrawingMode.None);
     }
 }

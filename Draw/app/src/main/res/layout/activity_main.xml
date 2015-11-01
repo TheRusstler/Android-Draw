@@ -1,55 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#aaa"
+    android:paddingBottom="15dp"
     android:paddingLeft="40dp"
     android:paddingRight="40dp"
-    android:background="#aaa"
     android:paddingTop="15dp"
-    android:paddingBottom="15dp" tools:context=".MainActivity">
+    tools:context=".MainActivity">
 
-    <ScrollView
-        android:background="#DDD"
-
-        android:padding="10dp"
+    <RelativeLayout
         android:layout_width="450dp"
+        android:layout_height="400dp"
         android:layout_centerVertical="true"
-        android:layout_height="400dp">
+        android:background="#DDD"
+        android:padding="10dp">
+
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <Button
+                android:id="@+id/newLineButton"
                 android:layout_width="200dp"
                 android:layout_height="60dp"
-                android:text="New line!"
-                android:onClick="newLine" />
+                android:onClick="newLine"
+                android:text="New line!" />
 
             <Button
+                android:id="@+id/moveButton"
                 android:layout_width="200dp"
                 android:layout_height="60dp"
-                android:text="Reposition"
-                android:onClick="move" />
+                android:onClick="move"
+                android:text="Move" />
+
             <Button
+                android:id="@+id/confirmButton"
                 android:layout_width="200dp"
                 android:layout_height="60dp"
-                android:text="Clear!"
-                android:id="@+id/button"
-                android:onClick="clear" />
+                android:onClick="confirm"
+                android:text="Confirm" />
+
+            <Button
+                android:id="@+id/cancelButton"
+                android:layout_width="200dp"
+                android:layout_height="60dp"
+                android:onClick="cancel"
+                android:text="Cancel" />
+
 
         </LinearLayout>
-    </ScrollView>
+
+        <Button
+            android:id="@+id/clearButton"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:onClick="clear"
+            android:text="Clear!" />
+    </RelativeLayout>
 
 
     <RelativeLayout
+        android:id="@+id/drawingLayout"
         android:layout_width="400dp"
-        android:background="#FFF"
-        android:layout_alignParentRight="true"
         android:layout_height="400dp"
+        android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:id="@+id/drawingLayout">
-    </RelativeLayout>
-
+        android:background="#FFF"></RelativeLayout>
 
 </RelativeLayout>
