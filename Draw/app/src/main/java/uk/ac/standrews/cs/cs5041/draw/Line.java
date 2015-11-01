@@ -36,12 +36,19 @@ public class Line implements Shape {
 
     @Override
     public void scale(double factor) {
-        x2 = (float)(x2 * factor);
-        y2 = (float)(y2 * factor);
+        float centreX, centreY, diffX, diffY;
+        centreX = x1 + ((x2 - x1) / 2);
+        centreY = y1 + ((y2 - y1) / 2);
+        diffX = centreX - x1;
+        diffY = centreY - y1;
+        x1 = (float) (centreX - (diffX * factor));
+        x2 = (float) (centreX + (diffX * factor));
+        y1 = (float) (centreY - (diffY * factor));
+        y2 = (float) (centreY + (diffY * factor));
     }
 
     @Override
     public Shape deepCopy() {
-        return null;
+        return new Line(x1, y1, x2, y2, paint);
     }
 }

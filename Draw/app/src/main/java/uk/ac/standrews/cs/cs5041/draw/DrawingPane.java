@@ -56,11 +56,16 @@ public class DrawingPane extends View {
 
             switch (action) {
                 case MotionEvent.ACTION_POINTER_DOWN:
-                    preScaleShape = newObject.deepCopy();
-                    multitouchStartDist = getMultitouchDist(event);
+                    if(mode == DrawingMode.Scale) {
+                        preScaleShape = newObject.deepCopy();
+                        multitouchStartDist = getMultitouchDist(event);
+                    }
                     break;
+
                 case MotionEvent.ACTION_MOVE:
-                    pointerMultitouchMove(event);
+                    if(mode == DrawingMode.Scale) {
+                        pointerMultitouchMove(event);
+                    }
                     break;
             }
         } else {
@@ -70,12 +75,6 @@ public class DrawingPane extends View {
                     System.out.println("First touch");
                     pointerDown(x, y);
                     break;
-
-                case MotionEvent.ACTION_POINTER_DOWN:
-                    System.out.println("Additional touch!");
-                    pointerDown(x, y);
-                    break;
-
                 case MotionEvent.ACTION_MOVE:
                     pointerMove(x, y);
                     break;

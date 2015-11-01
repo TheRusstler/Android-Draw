@@ -9,7 +9,7 @@ import android.widget.RelativeLayout;
 public class MainActivity extends ActionBarActivity {
 
     DrawingPane board;
-    Button move, confirm, cancel;
+    Button move, scale, confirm, cancel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +26,7 @@ public class MainActivity extends ActionBarActivity {
         l.addView(board);
 
         move = (Button) findViewById(R.id.moveButton);
+        scale = (Button) findViewById(R.id.scaleButton);
         confirm = (Button) findViewById(R.id.confirmButton);
         cancel = (Button) findViewById(R.id.cancelButton);
         updateButtons();
@@ -56,23 +57,26 @@ public class MainActivity extends ActionBarActivity {
     }
 
     void updateButtons() {
-        int moveVis = View.GONE, confirmVis = View.GONE, cancelVis = View.GONE;
+        int moveVis = View.GONE, scaleVis = View.GONE, confirmVis = View.GONE, cancelVis = View.GONE;
 
         switch (board.getMode()) {
             case Draw:
                 break;
             case Drawn:
                 moveVis = View.VISIBLE;
+                scaleVis = View.VISIBLE;
                 confirmVis = View.VISIBLE;
                 cancelVis = View.VISIBLE;
                 break;
             case Move:
+            case Scale:
                 confirmVis = View.VISIBLE;
                 cancelVis = View.VISIBLE;
                 break;
         }
 
         move.setVisibility(moveVis);
+        scale.setVisibility(scaleVis);
         confirm.setVisibility(confirmVis);
         cancel.setVisibility(cancelVis);
     }
