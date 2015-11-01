@@ -18,7 +18,25 @@ public class Rectangle implements Shape {
 
     @Override
     public void draw(Canvas canvas) {
-        canvas.drawRect(x1, y1, x2, y2, paint);
+        float l, t, r, b;
+        if(x1 < x2) {
+            l = x1;
+            r = x2;
+        }
+        else {
+            l = x2;
+            r = x1;
+        }
+
+        if(y1 < y2) {
+            t = y1;
+            b = y2;
+        }
+        else {
+            t = y2;
+            b = y1;
+        }
+        canvas.drawRect(l, t, r, b, paint);
     }
 
     @Override
