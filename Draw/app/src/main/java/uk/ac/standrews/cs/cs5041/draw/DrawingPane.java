@@ -10,10 +10,19 @@ import java.util.ArrayList;
 
 public class DrawingPane extends View {
 
-    ArrayList<Line> lines = new ArrayList<Line>();
+    private DrawingMode mode;
+    private CurrentShape currentShape;
+    private ArrayList<Shape> shapes = new ArrayList<Shape>();
+
+    private Shape newObject;
 
     public DrawingPane(Context context) {
         super(context);
+    }
+
+    public void clear() {
+        shapes.clear();
+        this.invalidate();
     }
 
     @Override
@@ -27,23 +36,24 @@ public class DrawingPane extends View {
         paint.setColor(Color.GRAY);
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(5);
-
-        int w = getWidth() - (getPaddingLeft() + getPaddingRight());
-        int h = getHeight() - (getPaddingTop() + getPaddingBottom());
-        int x = getPaddingLeft();
-        int y = getPaddingTop();
-        canvas.drawRect(x, y, w, h, paint);
+        canvas.drawRect(0, 0, getWidth(), getHeight(), paint);
     }
 
     void drawObjects(Canvas canvas) {
+        for(Shape s : shapes) {
+            s.draw(canvas);
+        }
+        if(newObject != null) {
+            newObject.draw(canvas);
+        }
+    }
+
+    Paint getPaint() {
         Paint paint = new Paint();
         paint.setColor(Color.BLUE);
         paint.setStyle(Paint.Style.FILL);
         paint.setStrokeWidth(5);
-
-        for(Line line : lines) {
-            canvas.drawLine(line.x1, line.y1, line.x2, line.y2, paint);
-        }
+        return paint;
     }
 
     @Override
@@ -59,33 +69,50 @@ public class DrawingPane extends View {
 
         switch (action) {
             case MotionEvent.ACTION_DOWN:
-            case MotionEvent.ACTION_POINTER_DOWN: {
-                addNewLine(x, y);
+            case MotionEvent.ACTION_POINTER_DOWN:
+                pointerDown(x, y);
                 break;
-            }
             case MotionEvent.ACTION_MOVE:
-            {
-                moveLine(x,y);
+                pointerMove(x,y);
                 break;
-            }
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_POINTER_UP:
             case MotionEvent.ACTION_CANCEL:
-            {
-                break;
-            }
+                pointerUp(x, y);
         }
         invalidate();
         return true;
     }
 
-    void addNewLine(float x, float y) {
-        int size = 200;
-        lines.add(new Line(x - size, y, x + size, y));
+    void pointerDown(float x, float y) {
+        if(mode == DrawingMode.Draw) {
+            if(currentShape == CurrentShape.Line) {
+                newObject = new Line(x, y, x, y, getPaint());
+            }
+        }
     }
 
-    void moveLine(float x, float y) {
-        addNewLine(x, y);
+    void pointerMove(float x, float y) {
+        if(mode == DrawingMode.Draw) {
+            if(currentShape == CurrentShape.Line) {
+                Line line = (Line) newObject;
+                line.x2 = x;
+                line.y2 = y;
+            }
+        }
+    }
 
+    void pointerUp(float x, float y) {
+        if(mode == DrawingMode.Draw) {
+            shapes.add(newObject);
+        }
+    }
+
+
+    public void setMode(DrawingMode mode) {
+        this.mode = mode;
+    }
+    public void setCurrentShape(CurrentShape currentShape) {
+        this.currentShape = currentShape;
     }
 }

@@ -1,32 +1,33 @@
 package uk.ac.standrews.cs.cs5041.draw;
 
-import android.app.ActionBar;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.view.ViewGroup.LayoutParams;
 import android.view.View;
 import android.widget.RelativeLayout;
 
 public class MainActivity extends ActionBarActivity {
 
-    DrawingPane drawingPane;
+    DrawingPane board;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        drawingPane = new DrawingPane(this);
-
+        board = new DrawingPane(this);
         setContentView(R.layout.activity_main);
-
         RelativeLayout l = (RelativeLayout)findViewById(R.id.drawingLayout);
-        l.addView(drawingPane);
+        l.addView(board);
     }
 
     public void clear(View view) {
-        drawingPane.lines.clear();
-        drawingPane.invalidate();
+        board.clear();
     }
 
     public void newLine(View view) {
+        board.setMode(DrawingMode.Draw);
+        board.setCurrentShape(CurrentShape.Line);
+    }
+
+    public void move(View view) {
+        board.setMode(DrawingMode.Move);
     }
 }

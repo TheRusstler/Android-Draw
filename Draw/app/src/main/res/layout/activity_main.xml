@@ -19,40 +19,18 @@
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-            <Button
-                android:layout_width="200dp"
-                android:layout_height="60dp"
-                android:text="test" />
-            <Button
-                android:layout_width="200dp"
-                android:layout_height="60dp"
-                android:text="test" />
-            <Button
-                android:layout_width="200dp"
-                android:layout_height="60dp"
-                android:text="test" />
-            <Button
-                android:layout_width="200dp"
-                android:layout_height="60dp"
-                android:text="test" />
-            <Button
-                android:layout_width="200dp"
-                android:layout_height="60dp"
-                android:text="test" />
-            <Button
-                android:layout_width="200dp"
-                android:layout_height="60dp"
-                android:text="test" />
-            <Button
-                android:layout_width="200dp"
-                android:layout_height="60dp"
-                android:text="test" />
 
             <Button
                 android:layout_width="200dp"
                 android:layout_height="60dp"
                 android:text="New line!"
                 android:onClick="newLine" />
+
+            <Button
+                android:layout_width="200dp"
+                android:layout_height="60dp"
+                android:text="Reposition"
+                android:onClick="move" />
             <Button
                 android:layout_width="200dp"
                 android:layout_height="60dp"
