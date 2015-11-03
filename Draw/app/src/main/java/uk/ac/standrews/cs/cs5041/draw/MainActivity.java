@@ -1,6 +1,8 @@
 package uk.ac.standrews.cs.cs5041.draw;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
@@ -11,6 +13,7 @@ public class MainActivity extends ActionBarActivity {
 
     DrawingPane board;
     Button move, scale, confirm, cancel;
+    View colourPickerButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +33,8 @@ public class MainActivity extends ActionBarActivity {
         scale = (Button) findViewById(R.id.scaleButton);
         confirm = (Button) findViewById(R.id.confirmButton);
         cancel = (Button) findViewById(R.id.cancelButton);
+        colourPickerButton = findViewById(R.id.colourPickerButton);
+
         updateButtons();
     }
 
@@ -37,8 +42,10 @@ public class MainActivity extends ActionBarActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(data.getExtras().containsKey("R")) {
-            int r = data.getIntExtra("R", 0);
-            System.out.println(r);
+            int r = data.getIntExtra("R", Color.BLACK);
+            colourPickerButton.setBackground(new ColorDrawable(r));
+            colourPickerButton.invalidate();
+            board.setColor(r);
         }
     }
 

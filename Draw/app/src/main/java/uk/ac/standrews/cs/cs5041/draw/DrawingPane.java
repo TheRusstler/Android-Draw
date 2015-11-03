@@ -20,6 +20,7 @@ public class DrawingPane extends View {
 
     Shape preScaleShape;
     double multitouchStartDist = 0;
+    private int color = Color.BLACK;
 
     public DrawingPane(Context context, Runnable onModeChange) {
         super(context);
@@ -164,7 +165,7 @@ public class DrawingPane extends View {
 
     Paint getPaint() {
         Paint paint = new Paint();
-        paint.setColor(Color.BLUE);
+        paint.setColor(color);
         paint.setStyle(Paint.Style.FILL);
         paint.setStrokeWidth(5);
         return paint;
@@ -193,5 +194,10 @@ public class DrawingPane extends View {
         shapes.add(newObject);
         newObject = null;
         setMode(DrawingMode.Draw);
+    }
+
+
+    public void setColor(int color) {
+        this.color = color;
     }
 }
