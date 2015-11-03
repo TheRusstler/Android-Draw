@@ -33,6 +33,15 @@ public class MainActivity extends ActionBarActivity {
         updateButtons();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(data.getExtras().containsKey("R")) {
+            int r = data.getIntExtra("R", 0);
+            System.out.println(r);
+        }
+    }
+
     public void clear(View view) {
         board.clear();
     }
@@ -91,6 +100,6 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void pickColour(View view) {
-        startActivity(new Intent("color_picker"));
+        startActivityForResult(new Intent(MainActivity.this, ColourPicker.class), 0);
     }
 }
