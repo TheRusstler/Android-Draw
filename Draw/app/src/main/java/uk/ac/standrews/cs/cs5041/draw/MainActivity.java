@@ -1,5 +1,6 @@
 package uk.ac.standrews.cs.cs5041.draw;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
@@ -87,5 +88,9 @@ public class MainActivity extends ActionBarActivity {
 
     public void rectangle(View view) {
         board.setCurrentShape(CurrentShape.Rectangle);
+    }
+
+    public void pickColour(View view) {
+        startActivity(new Intent("color_picker"));
     }
 }

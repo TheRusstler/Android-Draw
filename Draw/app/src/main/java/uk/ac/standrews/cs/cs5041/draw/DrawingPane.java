@@ -72,7 +72,6 @@ public class DrawingPane extends View {
             // Single touch event
             switch (action) {
                 case MotionEvent.ACTION_DOWN:
-                    System.out.println("First touch");
                     pointerDown(x, y);
                     break;
                 case MotionEvent.ACTION_MOVE:
