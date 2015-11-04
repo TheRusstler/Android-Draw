@@ -109,4 +109,11 @@ public class MainActivity extends ActionBarActivity {
     public void pickColour(View view) {
         startActivityForResult(new Intent(MainActivity.this, ColourPicker.class), 0);
     }
+
+    public void circle(View view) {
+        board.setCurrentShape(CurrentShape.Circle);
+    }
+
+    public void rotate(View view) {
+    }
 }

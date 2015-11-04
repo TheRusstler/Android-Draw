@@ -4,10 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#252830"
-    android:paddingBottom="15dp"
+    android:paddingBottom="20dp"
     android:paddingLeft="15dp"
     android:paddingRight="15dp"
-    android:paddingTop="15dp"
+    android:paddingTop="5dp"
     tools:context=".MainActivity">
 
     <TextView
@@ -51,6 +51,14 @@
                 android:layout_height="wrap_content"
                 android:onClick="rectangle"
                 android:text="Rectangle" />
+            <Button
+                android:id="@+id/circleButton"
+                style="@style/button_text"
+                android:background="@drawable/blue_button"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:onClick="circle"
+                android:text="Circle" />
         </LinearLayout>
 
         <TextView
@@ -123,6 +131,15 @@
                 android:layout_height="wrap_content"
                 android:onClick="scale"
                 android:text="Scale" />
+
+            <Button
+                android:id="@+id/rotateButton"
+                style="@style/button_text"
+                android:background="@drawable/blue_button"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:onClick="rotate"
+                android:text="Rotate" />
 
             <Button
                 android:id="@+id/cancelButton"

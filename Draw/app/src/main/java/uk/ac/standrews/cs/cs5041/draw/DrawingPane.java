@@ -115,6 +115,9 @@ public class DrawingPane extends View {
                 case Rectangle:
                     newObject = new Rectangle(x, y, x, y, getPaint());
                     break;
+                case Circle:
+                    newObject = new Circle(x, y, 0, getPaint());
+                    break;
             }
         }
         if (mode == DrawingMode.Move) {
@@ -134,6 +137,10 @@ public class DrawingPane extends View {
                     Rectangle rect = (Rectangle) newObject;
                     rect.x2 = x;
                     rect.y2 = y;
+                    break;
+                case Circle:
+                    Circle circ = (Circle) newObject;
+                    circ.setRadius(x, y);
                     break;
             }
         }
@@ -167,7 +174,7 @@ public class DrawingPane extends View {
         Paint paint = new Paint();
         paint.setColor(color);
         paint.setStyle(Paint.Style.FILL);
-        paint.setStrokeWidth(5);
+        paint.setStrokeWidth(6);
         return paint;
     }
 

@@ -29,5 +29,4 @@ public class ColourPicker extends ActionBarActivity {
         setResult(RESULT_OK, i);
         finish();
     }
-
 }
