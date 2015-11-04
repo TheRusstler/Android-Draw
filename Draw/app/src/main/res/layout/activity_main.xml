@@ -3,19 +3,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#aaa"
+    android:background="#252830"
     android:paddingBottom="15dp"
-    android:paddingLeft="30dp"
-    android:paddingRight="30dp"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
     android:paddingTop="15dp"
     tools:context=".MainActivity">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAllCaps="true"
+        android:text="Draw"
+        android:textColor="#fff"
+        android:id="@+id/textView"
+        android:textSize="20dp"
+        android:layout_marginBottom="5dp"
+        android:layout_above="@+id/relativeLayout"
+        android:layout_alignParentStart="true" />
+
     <RelativeLayout
-        android:layout_width="180dp"
+        android:layout_width="140dp"
         android:layout_height="400dp"
-        android:layout_centerVertical="true"
-        android:background="#DDD"
-        android:padding="10dp">
+        android:layout_alignParentBottom="true"
+        android:background="#434857"
+        android:padding="10dp"
+        android:id="@+id/relativeLayout">
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -40,6 +53,12 @@
                 android:text="Rectangle" />
         </LinearLayout>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:text="Colour" android:textColor="#fff"
+            android:layout_above="@+id/colourPickerButton"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="5dp" />
         <Button
             android:id="@+id/colourPickerButton"
             android:background="#000000"
@@ -48,17 +67,28 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:onClick="pickColour"
-            android:layout_marginBottom="20dp" />
-
+            android:layout_marginBottom="6dp" />
     </RelativeLayout>
+    
 
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAllCaps="true"
+        android:text="Manipulate"
+        android:textColor="#fff"
+        android:id="@+id/textView2"
+        android:textSize="20dp"
+        android:layout_marginBottom="5dp"
+        android:layout_above="@+id/toolLayout"
+        android:layout_alignLeft="@+id/toolLayout" />
     <RelativeLayout
-        android:layout_width="180dp"
+        android:layout_width="140dp"
         android:layout_height="400dp"
-        android:layout_centerVertical="true"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:background="#DDD"
+        android:background="#434857"
+        android:id="@+id/toolLayout"
         android:padding="10dp">
 
         <LinearLayout
@@ -74,7 +104,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:onClick="confirm"
-                android:text="Confirm" />
+                android:text="✓" />
 
             <Button
                 android:id="@+id/moveButton"
@@ -101,7 +131,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:onClick="cancel"
-                android:text="Cancel" />
+                android:text="✘" />
         </LinearLayout>
 
         <Button
@@ -117,12 +147,26 @@
     </RelativeLayout>
 
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAllCaps="true"
+        android:text="Canvas"
+        android:textColor="#fff"
+        android:id="@+id/textView3"
+        android:textSize="20dp"
+        android:layout_marginBottom="5dp"
+        android:layout_above="@+id/drawingLayout"
+        android:layout_alignLeft="@+id/drawingLayout" />
     <RelativeLayout
+
         android:id="@+id/drawingLayout"
-        android:layout_width="400dp"
+        android:layout_width="600dp"
         android:layout_height="400dp"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+        android:layout_alignParentBottom="true"
         android:background="#FFF"></RelativeLayout>
+
+
 
 </RelativeLayout>
