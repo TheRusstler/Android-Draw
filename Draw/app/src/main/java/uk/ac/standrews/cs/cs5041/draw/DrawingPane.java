@@ -18,8 +18,11 @@ public class DrawingPane extends View {
     private Shape newObject;
     Runnable onModeChange;
 
-    Shape preScaleShape;
-    double multitouchStartDist = 0;
+    private Shape preScaleShape;
+    private double multitouchStartDist = 0;
+
+    private float startRotateX, startRotateY;
+
     private int color = Color.BLACK;
 
     public DrawingPane(Context context, Runnable onModeChange) {
@@ -57,14 +60,14 @@ public class DrawingPane extends View {
 
             switch (action) {
                 case MotionEvent.ACTION_POINTER_DOWN:
-                    if(mode == DrawingMode.Scale) {
+                    if (mode == DrawingMode.Scale) {
                         preScaleShape = newObject.deepCopy();
                         multitouchStartDist = getMultitouchDist(event);
                     }
                     break;
 
                 case MotionEvent.ACTION_MOVE:
-                    if(mode == DrawingMode.Scale) {
+                    if (mode == DrawingMode.Scale) {
                         pointerMultitouchMove(event);
                     }
                     break;
@@ -123,6 +126,10 @@ public class DrawingPane extends View {
         if (mode == DrawingMode.Move) {
             pointerMove(x, y);
         }
+        if (mode == DrawingMode.Rotate) {
+            startRotateX = x;
+            startRotateY = y;
+        }
     }
 
     void pointerMove(float x, float y) {
@@ -147,6 +154,9 @@ public class DrawingPane extends View {
         if (mode == DrawingMode.Move) {
             newObject.move(x, y);
         }
+        if (mode == DrawingMode.Rotate) {
+            newObject.rotate(startRotateX, startRotateY, x, y);
+        }
     }
 
     void pointerUp(float x, float y) {
@@ -162,12 +172,23 @@ public class DrawingPane extends View {
     }
 
     void drawObjects(Canvas canvas) {
+        float rotation = 0, centreX = 0, centreY = 0;
         for (Shape s : shapes) {
-            s.draw(canvas);
+            drawObject(canvas, s);
         }
         if (newObject != null) {
-            newObject.draw(canvas);
+            drawObject(canvas, newObject);
         }
+    }
+
+    void drawObject(Canvas canvas, Shape s) {
+        float rotation = 0, centreX = 0, centreY = 0;
+        rotation = (float)s.getRotation();
+        centreX = s.getCentreX();
+        centreY = s.getCentreY();
+        canvas.rotate(rotation, centreX, centreY);
+        s.draw(canvas);
+        canvas.rotate(-rotation, centreX, centreY);
     }
 
     Paint getPaint() {

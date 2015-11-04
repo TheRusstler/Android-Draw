@@ -12,7 +12,7 @@ import android.widget.RelativeLayout;
 public class MainActivity extends ActionBarActivity {
 
     DrawingPane board;
-    Button move, scale, confirm, cancel;
+    Button move, scale, rotate, confirm, cancel;
     View colourPickerButton;
 
     @Override
@@ -31,6 +31,7 @@ public class MainActivity extends ActionBarActivity {
 
         move = (Button) findViewById(R.id.moveButton);
         scale = (Button) findViewById(R.id.scaleButton);
+        rotate = (Button) findViewById(R.id.rotateButton);
         confirm = (Button) findViewById(R.id.confirmButton);
         cancel = (Button) findViewById(R.id.cancelButton);
         colourPickerButton = findViewById(R.id.colourPickerButton);
@@ -65,6 +66,10 @@ public class MainActivity extends ActionBarActivity {
         board.setMode(DrawingMode.Scale);
     }
 
+    public void rotate(View view) {
+        board.setMode(DrawingMode.Rotate);
+    }
+
     public void cancel(View view) {
         board.cancelNewObject();
     }
@@ -74,7 +79,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
     void updateButtons() {
-        int moveVis = View.GONE, scaleVis = View.GONE, confirmVis = View.GONE, cancelVis = View.GONE;
+        int moveVis = View.GONE, scaleVis = View.GONE, rotateVis = View.GONE, confirmVis = View.GONE, cancelVis = View.GONE;
 
         switch (board.getMode()) {
             case Draw:
@@ -82,10 +87,12 @@ public class MainActivity extends ActionBarActivity {
             case Drawn:
                 moveVis = View.VISIBLE;
                 scaleVis = View.VISIBLE;
+                rotateVis = View.VISIBLE;
                 confirmVis = View.VISIBLE;
                 cancelVis = View.VISIBLE;
                 break;
             case Move:
+            case Rotate:
             case Scale:
                 confirmVis = View.VISIBLE;
                 cancelVis = View.VISIBLE;
@@ -94,6 +101,7 @@ public class MainActivity extends ActionBarActivity {
 
         move.setVisibility(moveVis);
         scale.setVisibility(scaleVis);
+        rotate.setVisibility(rotateVis);
         confirm.setVisibility(confirmVis);
         cancel.setVisibility(cancelVis);
     }
@@ -112,8 +120,5 @@ public class MainActivity extends ActionBarActivity {
 
     public void circle(View view) {
         board.setCurrentShape(CurrentShape.Circle);
-    }
-
-    public void rotate(View view) {
     }
 }
