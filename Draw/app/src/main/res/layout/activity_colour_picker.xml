@@ -10,9 +10,11 @@
     tools:context="uk.ac.standrews.cs.cs5041.draw.ColourPicker">
 
     <GridLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_marginBottom="70dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="0dp"
         android:columnCount="6"
         android:rowCount="6">
 
@@ -31,6 +33,82 @@
             style="@style/paint"
             android:background="#1235a7"
             android:onClick="selectColour" />
+
+        <View
+            style="@style/paint"
+            android:background="#a75312"
+            android:onClick="selectColour" />
+
+        <View
+            style="@style/paint"
+            android:background="#a72312"
+            android:onClick="selectColour" />
+
+        <View
+            style="@style/paint"
+            android:background="#12a798"
+            android:onClick="selectColour" />
+
+        <View
+            style="@style/paint"
+            android:background="#043d1d"
+            android:onClick="selectColour" />
+
+        <View
+            style="@style/paint"
+            android:background="#011658"
+            android:onClick="selectColour" />
+
+        <View
+            style="@style/paint"
+            android:background="#a2aca7"
+            android:onClick="selectColour" />
+
+        <View
+            style="@style/paint"
+            android:background="#8912a7"
+            android:onClick="selectColour" />
+
+        <View
+            style="@style/paint"
+            android:background="#2d1c4d"
+            android:onClick="selectColour" />
+
+        <View
+            style="@style/paint"
+            android:background="#ffff00"
+            android:onClick="selectColour" />
+
+        <View
+            style="@style/paint"
+            android:background="#7cab77"
+            android:onClick="selectColour" />
+
+        <View
+            style="@style/paint"
+            android:background="#f78614"
+            android:onClick="selectColour" />
+
+        <View
+            style="@style/paint"
+            android:background="#f50800"
+            android:onClick="selectColour" />
+
+        <View
+            style="@style/paint"
+            android:background="#d65875"
+            android:onClick="selectColour" />
+
+        <View
+            style="@style/paint"
+            android:background="#5b5c5c"
+            android:onClick="selectColour" />
+
+        <View
+            style="@style/paint"
+            android:background="#820296"
+            android:onClick="selectColour" />
+
 
     </GridLayout>
 
