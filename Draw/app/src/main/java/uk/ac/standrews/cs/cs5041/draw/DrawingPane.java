@@ -113,10 +113,10 @@ public class DrawingPane extends View {
         if (mode == DrawingMode.Draw) {
             switch (currentShape) {
                 case Line:
-                    newObject = new Line(x, y, x, y, getPaint());
+                    newObject = new Line(x, y, x, y, 0, getPaint());
                     break;
                 case Rectangle:
-                    newObject = new Rectangle(x, y, x, y, getPaint());
+                    newObject = new Rectangle(x, y, x, y, 0, getPaint());
                     break;
                 case Circle:
                     newObject = new Circle(x, y, 0, getPaint());
